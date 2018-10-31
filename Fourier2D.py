@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.image import imread
+from scipy.fftpack import fft, ifft
 
 N=3500
 #se lee la imagen del arbol
@@ -17,3 +18,10 @@ plt.grid()
 plt.xlabel('x')
 plt.ylabel('y')
 fig.savefig('BlandonValentina_FT2D.pdf')
+
+# Se hace un filtro que me permita eliminar el ruido periodico de la imagen
+
+arreglo_de_imagen_fourier[np.where(arreglo_de_imagen_fourier>N)] = 0
+
+# Para esto se crea una escala lognormal
+escala_lognormal = np.log(np.abs(arreglo_de_imagen_fourier))
