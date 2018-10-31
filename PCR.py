@@ -63,3 +63,31 @@ for i in range(m):
 # Ordenar los autovalores y autovectores de acuerdo al orden menor-mayor de los autovalores
 v = v[:,np.argsort(w)]
 w = w[np.argsort(w)]
+
+# Selecciono las componentes principales las cuales son los autovectores en las dos ultimas posiciones.
+componentes = v[:,[-1,-2]]
+
+print("Segun las componentes principales, las variables mas importantes son ", 1+ np.argmax(abs(componentes),0))
+
+
+# se hallan proyecciones
+def proyeccion(V1, V2):
+    # se halla la  proyeccion de vectores 2x1
+    return V1[0]*V2[0] + V1[1]*V2[1]
+
+
+proyecciones = [] # Lista vacia para guardar las proyecciones
+for i in range(569):
+    # Encontrar proyeccion sobre cada componente principal
+    p1 = proyeccion(numeros[i,:], componentes[:,0])
+    p2 = proyeccion(numeros[i,:], componentes[:,1])
+    # Guardar valores
+    proyecciones.append([p1,p2])
+
+# Asegurarse que sea array de python
+proyecciones = np.array(proyecciones)
+
+plt.figure()
+plt.title("proyeccion de datos")
+plt.plot(proyecciones[letras=='B',0] , proyecciones[letras=='B',1],'^', proyecciones[letras=='M',0] , proyecciones[letras=='M',1],'v')
+plt.savefig('BlandonValentina_PCA.pdf')
