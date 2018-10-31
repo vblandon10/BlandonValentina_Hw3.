@@ -21,6 +21,25 @@ fig = plt.gcf()
 plt.plot(xSignal, ySignal )
 plt.title("Grafica de signal")
 plt.grid()
-plt.xlabel('Tiempo');
+plt.xlabel('Tiempo')
 plt.ylabel('y')
 fig.savefig('BlandonValentina_signal.pdf')
+
+
+signal_F = []
+signal_frecuencias_positivas = []
+signal_frecuencias_negativas = []
+# frecuencia base para calcular el vector de frecuencias
+signal_fbase = (1/2) *  1/(signal[1,0]-signal[0,0]) * (2/(len(signal)))
+
+for i in range(len(signal)):
+    n = np.arange(0, len(signal))
+
+    # transformada de fourier con alpha*exp(theta)
+    theta = -1j*2*np.pi*i*n/len(signal)
+    alpha = signal[:,1]
+    signal_F.append( np.sum(np.sum(alpha*np.exp(theta)) ) ) # guardar datos
+
+    if i < len(signal)/2: # Crear vector de frecuencias
+        signal_frecuencias_positivas.append( i*signal_fbase )
+        signal_frecuencias_negativas.append( -i*signal_fbase )
