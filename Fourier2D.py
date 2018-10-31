@@ -37,3 +37,13 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.colorbar()
 fig.savefig('BlandonValentina_FT2D_filtrada.pdf')
+
+#Haga la transformada de Fourier inversa y grafique la imagen filtrada.
+#guardo la grafica sin mostrarla
+plt.figure()
+fig = plt.gcf()
+plt.imshow(np.fft.ifft2(arreglo_de_imagen_fourier).real, cmap='gray')
+plt.grid()
+plt.xlabel('x')
+plt.ylabel('y')
+fig.savefig('BlandonValentina_Imagen_filtrada.pdf')
