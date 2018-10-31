@@ -19,6 +19,7 @@ ySignal = signal[:,1]
 plt.figure()
 fig = plt.gcf()
 plt.plot(xSignal, ySignal )
+plt.title("Grafica de signal")
 plt.grid()
 plt.xlabel('Tiempo');
 plt.ylabel('y')
