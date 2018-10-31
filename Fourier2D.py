@@ -25,3 +25,15 @@ arreglo_de_imagen_fourier[np.where(arreglo_de_imagen_fourier>N)] = 0
 
 # Para esto se crea una escala lognormal
 escala_lognormal = np.log(np.abs(arreglo_de_imagen_fourier))
+
+# grafica  de la transformada de fourier despues del proceso de filtrado en escala lognormal
+#guardo la grafica sin mostrarla
+
+plt.figure()
+fig = plt.gcf()
+plt.imshow(escala_lognormal)
+plt.grid()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.colorbar()
+fig.savefig('BlandonValentina_FT2D_filtrada.pdf')
