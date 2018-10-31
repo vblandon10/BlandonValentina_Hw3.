@@ -12,6 +12,7 @@ arreglo_de_imagen = imread('arbol.PNG')
 arreglo_de_imagen_fourier = np.fft.fft2(arreglo_de_imagen)
 
 # Se realiza una grafica de la transformada y la guardo sin mostrarla.
+
 fig = plt.gcf()
 plt.imshow(np.abs(arreglo_de_imagen_fourier))
 plt.grid()
