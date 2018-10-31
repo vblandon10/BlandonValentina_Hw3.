@@ -32,3 +32,24 @@ n = np.size(numeros,0) # Cantidad de datos
 Promedios = np.zeros(m)
 for i in range(m):
     Promedios[i] = np.mean(numeros[:,i]) # se calcula el promedio de cada variable y guardarlo
+
+def covarianza(X,Y):
+    # Calcula la varianza de X y Y
+    n = len(X)
+
+    # Promedios en x y y
+    mx = np.mean(X)
+    my = np.mean(Y)
+
+    return np.sum( (X-mx)*(Y-my) )/(n-1)
+
+# Se calcula la covarianza de los datos
+matrizCov = np.zeros((m,m)) # se genera una matriz de ceros.
+for i in range(m):
+    for j in range(m):
+
+        # i,j son recorridos en las variables (columnas)
+        Varij = covarianza(numeros[:,i], numeros[:,j])
+        matrizCov[i,j] = Varij #se genera la matriz de covarianza.
+
+print(matrizCov, '\n'*3, np.cov(numeros.T))
