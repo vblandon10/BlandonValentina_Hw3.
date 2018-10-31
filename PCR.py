@@ -29,7 +29,7 @@ m = np.size(numeros,1) # Cantidad de variables
 n = np.size(numeros,0) # Cantidad de datos
 
 # se Calculan promedios y  se guardan
-Promedios = np.zeros(m)
+Promedios = np.zeros(m) #se genera una matris de zeros
 for i in range(m):
     Promedios[i] = np.mean(numeros[:,i]) # se calcula el promedio de cada variable y guardarlo
 
@@ -53,3 +53,13 @@ for i in range(m):
         matrizCov[i,j] = Varij #se genera la matriz de covarianza.
 
 print(matrizCov, '\n'*3, np.cov(numeros.T))
+
+w,v = np.linalg.eig(matrizCov) # Autovalores y autovectores
+
+print("Los autovectores son:")
+for i in range(m):
+    print( "Autovalor ", w[i], " con autovector columna", v[:,i])
+
+# Ordenar los autovalores y autovectores de acuerdo al orden menor-mayor de los autovalores
+v = v[:,np.argsort(w)]
+w = w[np.argsort(w)]
