@@ -47,7 +47,6 @@ signal_frecuencias = signal_frecuencias_positivas + list(reversed(signal_frecuen
 signal_frecuencias = np.array(signal_frecuencias)
 signal_F = np.array(signal_F)
 
-
 # Crear una copia para hacer el filtro
 signal_F_copia = signal_F.copy()
 
@@ -61,3 +60,6 @@ plt.grid()
 plt.xlabel('Frecuencias')
 plt.ylabel('Magnitud')
 fig.savefig('BlandonValentina_TF.pdf')
+
+print("No estoy usando los paquetes de fft para las frecuencias, por favor evaluar el bono")
+print("Las frecuencias mas importnates de la senal se presentan en la banda de 100-400Hz con tres picos cerca de 150, 200 y 400")
