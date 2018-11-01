@@ -81,3 +81,6 @@ def filtrar(frecuencias, amplitudes, fc1, fc2):
     amplitudes[altas] = 0
 
     return amplitudes
+
+# se filtra
+signal_F_filtro = filtrar(signal_frecuencias, signal_F, -1000, 1000)
