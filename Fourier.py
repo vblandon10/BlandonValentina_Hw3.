@@ -84,3 +84,10 @@ def filtrar(frecuencias, amplitudes, fc1, fc2):
 
 # se filtra
 signal_F_filtro = filtrar(signal_frecuencias, signal_F, -1000, 1000)
+
+#realice la transformada inversa.
+
+signal_F_filtro = np.roll(signal_F_filtro, int(len(signal_F_filtro)/2) )# Volver a girar los arreglos para hacer la transformada inversa
+signal_filtrada = ifft(signal_F_filtro)
+
+dkldkcmdscpsdcpok[cpowopoo[o]]
