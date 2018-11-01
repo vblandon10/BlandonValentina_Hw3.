@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import ifft
 from scipy.interpolate import interp1d
 
+#cabe resalta que distintos paquetes como np.abs, pn.roll, np.where en stackoverflow
+#np.roll es para 'rodar un arreglo'.
+#np.abs es para sacar el absoluto, ya que fourier son numeros complejos.
+
 signal = np.genfromtxt('signal.dat') # cargar datos
 # los datos vienen con una columna de nans, entonces elijo solo las
 # columnas que me interesan
@@ -62,4 +66,18 @@ plt.ylabel('Magnitud')
 fig.savefig('BlandonValentina_TF.pdf')
 
 print("No estoy usando los paquetes de fft para las frecuencias, por favor evaluar el bono")
+
+
 print("Las frecuencias mas importnates de la senal se presentan en la banda de 100-400Hz con tres picos cerca de 150, 200 y 400")
+
+
+
+#Filtro pasa bajos con frecuencia de corte
+def filtrar(frecuencias, amplitudes, fc1, fc2):
+    # Encontrar los armonicos fuera de las frecuencias fc1 y fc2
+    altas = np.where(np.logical_or(frecuencias < fc1, fc2 < frecuencias ) )
+
+    # Eliminar esos armonicos
+    amplitudes[altas] = 0
+
+    return amplitudes
