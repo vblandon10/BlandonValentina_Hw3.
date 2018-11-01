@@ -105,6 +105,7 @@ fig.savefig('BlandonValentina_Filtrada.pdf')
 
 print("La trasnformada discreta de fourier esta restrigingida a senales con una frecuencia de muestreo constante. Como los datos incompletos no cumplen este requerimiento, no se puede hacer la transformada.")
 
+
 # con incompletos pasa lo mismo que con signal
 incompletos = incompletos[:,[0,-1]]
 
@@ -139,3 +140,41 @@ for i in range(n):
     if i < n/2: # Crear vector de frecuencias
         signal_i_frecuencias_positivas.append( i*signal_i_fbase )
         signal_i_frecuencias_negativas.append( -i*signal_i_fbase )
+
+# concatenar las frecuencias positivas y las negativas en el orden correspondiente
+signal_i_frecuencias = signal_i_frecuencias_positivas + list(reversed(signal_i_frecuencias_negativas))
+
+# Convertir a arrays de numpy
+signal_i_frecuencias = np.array(signal_i_frecuencias)
+signal_cuadrado_F = np.array(signal_cuadrado_F)
+signal_cubico_F = np.array(signal_cubico_F)
+
+
+
+# Graficas
+plt.figure(figsize=(12,8))
+fig = plt.gcf()
+plt.subplot(3,1,1)
+plt.semilogy(signal_frecuencias, np.abs(signal_F_copia))
+plt.grid()
+plt.ylabel('Magnitud')
+#plt.xlabel('Frecuencias')
+plt.title('Espectros de frecuencias de senal base (1) e interpolaciones con splines cuadrados (2) y cubicos(3)')
+
+plt.subplot(3,1,2)
+plt.semilogy(signal_i_frecuencias, np.abs(signal_cuadrado_F))
+plt.grid()
+plt.ylabel('Magnitud')
+#plt.xlabel('Frecuencias')
+
+plt.subplot(3,1,3)
+plt.semilogy(signal_i_frecuencias, np.abs(signal_cubico_F))
+plt.grid()
+plt.xlabel('Frecuencias')
+plt.ylabel('Magnitud')
+
+
+fig.savefig('BlandonValentina_TF_interpola.pdf')
+
+print("En la grafica se muestra que ambas interpolaciones aumentaron la amplitud del ruido para fercuencias supeiores a 500Hz, especialmente la interpolacion cuadratica. Esto se evidencia en que al graficar la interpolacion cuadratica se generarn pequenas ondas aparentes sobre la onda base.")
+print("En la interpolacion cubica tambien se generaban pequenas ondas adicionales, pero al garantizar la continuidad de mas derivadas, se obtuvo una curva mas suave y en consecuencia se introduce menos ruido a la senal base")
