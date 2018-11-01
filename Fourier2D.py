@@ -19,6 +19,8 @@ plt.grid()
 plt.xlabel('x')
 plt.ylabel('y')
 fig.savefig('BlandonValentina_FT2D.pdf')
+#aca se deben ver los puntos azules mas claros que se observan en las esquinas
+#se eliminaron todos los picos mayores que un valor. Como cortar todas las montañas desde cierta altura
 
 # Se hace un filtro que me permita eliminar el ruido periodico de la imagen
 
