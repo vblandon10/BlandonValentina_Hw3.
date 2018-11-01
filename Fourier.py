@@ -6,8 +6,11 @@ from scipy.interpolate import interp1d
 #cabe resalta que distintos paquetes como np.abs, pn.roll, np.where en stackoverflow
 #np.roll es para 'rodar un arreglo'.
 #np.abs es para sacar el absoluto, ya que fourier son numeros complejos.
+#El np.where es para elegir los indices de un arreglo que cumple alguna condicion
+#plt.gcf() para que le devuelva a uno la ultima figura en la que se grafico
 
-signal = np.genfromtxt('signal.dat') # cargar datos
+signal = np.genfromtxt('signal.dat')
+incompletos = np.genfromtxt('incompletos.dat')  # cargar datos
 # los datos vienen con una columna de nans, entonces elijo solo las
 # columnas que me interesan
 signal = signal[:,[0,-1]]
@@ -101,3 +104,38 @@ plt.ylabel('y')
 fig.savefig('BlandonValentina_Filtrada.pdf')
 
 print("La trasnformada discreta de fourier esta restrigingida a senales con una frecuencia de muestreo constante. Como los datos incompletos no cumplen este requerimiento, no se puede hacer la transformada.")
+
+# con incompletos pasa lo mismo que con signal
+incompletos = incompletos[:,[0,-1]]
+
+# Hacer un x uniforme para las interpolaciones
+n = 512
+xcompleto = np.linspace(min(incompletos[:,0]), max(incompletos[:,0]), n)
+
+# Encontrar las interpolaciones cuadrada y cubica
+funcion_interpolacion = interp1d(incompletos[:,0], incompletos[:,1], kind='quadratic')
+signal_cuadrado = funcion_interpolacion(xcompleto)
+
+funcion_interpolacion = interp1d(incompletos[:,0], incompletos[:,1], kind='cubic')
+signal_cubico = funcion_interpolacion(xcompleto)
+# transformadas de Fourier
+signal_cuadrado_F = []
+signal_cubico_F = []
+signal_i_frecuencias_positivas = []
+signal_i_frecuencias_negativas = []
+signal_i_fbase = (1/2) *  1/(xcompleto[1]-xcompleto[0]) * (2/n)
+
+for i in range(n):
+    m = np.arange(0, n)
+
+    # transformada de fourier con alpha*exp(theta)
+    theta = -1j*2*np.pi*i*m/n
+    alpha_cuadrado = signal_cuadrado
+    alpha_cubico = signal_cubico
+
+    signal_cuadrado_F.append( np.sum(np.sum(alpha_cuadrado*np.exp(theta)) ) ) # guardar datos
+    signal_cubico_F.append( np.sum(np.sum(alpha_cubico*np.exp(theta)) ) ) # guardar datos
+
+    if i < n/2: # Crear vector de frecuencias
+        signal_i_frecuencias_positivas.append( i*signal_i_fbase )
+        signal_i_frecuencias_negativas.append( -i*signal_i_fbase )
